@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda en Línea</title>
+    <link rel="stylesheet" href="/pagina/css/inicio.css">
+</head>
+<body bgcolor="000">
+    <header>
+        <nav>
+            <ul>
+        <img src="/pagina/imagenes/logo_pagina.jpg" alt="Logo de la empresa" style="height: 50px; border-radius: 50%;">
+         <a style="color: white;">Mercedes-Benz</a>
+
+                <li><a href="/pagina/html/index.html">Inicio</a></li>
+                <li><a href="/pagina/html/historia.html">Historia de Mercedes-Benz</a></li>
+                <li><a href="/pagina/html/productos.html">Vehículos Exclusivos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Atención a Clientes</h1>
+            <form id="commentForm">
+                <label for="comentario">Escribe tu comentario:</label><br>
+                <textarea id="comentario" name="comentario" rows="4" required></textarea><br><br>
+                <input type="submit" value="Enviar Comentario">
+            </form>
+        </div>
+    </main>
+
+    <script src="/pagina/script/obtener_usuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('commentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/pagina/php/guardar_comentario.php', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Comentario enviado",
+                        text: "Comentario enviado correctamente. En breve te leeremos.",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/pagina/html/atencion_cliente.html";
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Error al guardar el comentario."
+                    });
+                }
+            };
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>

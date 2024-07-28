@@ -1,0 +1,88 @@
+/* inicio.css */
+
+/* Reseteo de margen y padding */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos globales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Estilos para el header */
+header {
+    background-color: #000;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Logo en el header */
+header .logo {
+    height: 50px;
+    vertical-align: middle;
+}
+
+/* Estilos para el main */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-image: url('/pagina/imagenes/logo_m.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+/* Contenedor de botones */
+.contenedor-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Limita el ancho máximo del contenedor */
+    width: 100%; /* Se asegura de que ocupe el 100% del ancho disponible */
+}
+
+/* Botones */
+.boton {
+    padding: 15px 30px;
+    border: none;
+    background-color: #000;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+    display: block; /* Asegura que el botón ocupe todo el ancho del contenedor */
+}
+
+.boton:hover {
+    background-color: #444;
+    transform: scale(1.05);
+}
+
+.boton:active {
+    background-color: #666;
+    transform: scale(1);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 576px) {
+    /* Para pantallas muy pequeñas, ajusta el padding del contenedor de botones */
+    .contenedor-botones {
+        padding: 10px;
+    }
+
+    .boton {
+        padding: 10px 20px;
+    }
+}

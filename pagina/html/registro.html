@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="/pagina/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function mostrarAlerta(mensaje, tipo, redirigir) {
+            Swal.fire({
+                icon: tipo,
+                title: tipo === 'error' ? 'Error' : 'Éxito',
+                text: mensaje,
+                timer: 2000, // Tiempo en milisegundos antes de redirigir
+                timerProgressBar: true,
+                didClose: () => {
+                    if (redirigir) {
+                        window.location.href = '/pagina/html/login.html';
+                    }
+                }
+            });
+        }
+
+        function enviarFormulario(event) {
+            event.preventDefault(); // Evitar el envío tradicional del formulario
+
+            var formulario = document.getElementById('loginform');
+            var datos = new FormData(formulario);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/pagina/php/registro.php', true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Procesar la respuesta del servidor
+                    var respuesta = xhr.responseText;
+                    if (respuesta.includes('Las contraseñas no coinciden')) {
+                        mostrarAlerta('Las contraseñas no coinciden', 'error', false);
+                    } else if (respuesta.includes('El usuario o el correo ya existen')) {
+                        mostrarAlerta('El usuario o el correo ya existen', 'error', false);
+                    } else if (respuesta.includes('Usuario registrado exitosamente')) {
+                        mostrarAlerta('Usuario registrado exitosamente', 'success', true);
+                    } else {
+                        mostrarAlerta('Hubo un problema al registrar el usuario', 'error', false);
+                    }
+                } else {
+                    mostrarAlerta('Error en la solicitud: ' + xhr.status, 'error', false);
+                }
+            };
+
+            xhr.send(datos);
+        }
+    </script>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="contenedorcentrado">
+            <div id="login">
+                <form id="loginform" method="POST" onsubmit="enviarFormulario(event)">
+                    <label for="usuario" style="color: white;">Usuario</label>
+                    <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
+                    
+                    <label for="correo" style="color: white;">Correo Electrónico</label>
+                    <input id="correo" type="email" name="correo" placeholder="Correo Electrónico" required>
+                    
+                    <label for="password" style="color: white;">Contraseña</label>
+                    <input id="password" type="password" placeholder="Contraseña" name="password" required>
+                    
+                    <label for="confirm_password" style="color: white;">Confirmar Contraseña</label>
+                    <input id="confirm_password" type="password" placeholder="Confirmar Contraseña" name="confirm_password" required>
+                    
+                    <button type="submit" title="Regístrate" name="Regístrate">Regístrate</button>
+                </form>
+            </div>
+            <div id="derecho">
+                <div class="titulo">
+                    <a>Bienvenido, regístrate aquí</a>
+                </div>
+                <hr>
+                <div class="pie-form">
+                    <a href="login.html">« Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="/pagina/css/carrito.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        //función encargada de sumar los productos 
+        function cargarCarrito() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/pagina/php/mostrar_carrito.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('carrito').innerHTML = xhr.responseText;
+                    calcularTotal(); // Calcula el total después de cargar el carrito
+                }
+            };
+            xhr.send();
+        }
+
+        //función encargada para eliminar la cantidad de artículos 
+        function eliminarCantidad(id, cantidad) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/pagina/php/eliminar_producto.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    Swal.fire('Cantidad actualizada', '', 'success');
+                    cargarCarrito(); // Recarga el carrito después de eliminar la cantidad
+                } else if (xhr.readyState === 4) {
+                    Swal.fire('Error', 'No se pudo actualizar la cantidad', 'error');
+                }
+            };
+            xhr.send('id=' + encodeURIComponent(id) + '&cantidad=' + encodeURIComponent(cantidad));
+        }
+
+        //función encargada de procesar el pago 
+        function procesarPago() {
+            var formData = new FormData(document.getElementById('pagoForm'));
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/pagina/php/procesar_pago.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    Swal.fire('Pago realizado', 'Tu pedido ha sido procesado con éxito.', 'success').then(() => {
+                        window.location.href = '/pagina/html/index.html'; // Redirige al usuario a la página de inicio o a otra página
+                    });
+                } else if (xhr.readyState === 4) {
+                    Swal.fire('Error', 'No se pudo procesar el pago. Inténtalo de nuevo.', 'error');
+                }
+            };
+            xhr.send(formData);
+        }
+
+        //función encargada de calcular el total
+        function calcularTotal() {
+            var total = 0;
+            var precios = document.querySelectorAll('.item .precio');
+            var cantidades = document.querySelectorAll('.item .cantidad');
+
+            precios.forEach(function(precio, index) {
+                var precioUnitario = parseFloat(precio.innerText.replace('$', '').replace(',', ''));
+                var cantidad = parseInt(cantidades[index].innerText);
+                total += precioUnitario * cantidad;
+            });
+
+            document.getElementById('total').innerText = 'Total: $' + total.toFixed(2);
+        }
+
+        // Cargar el carrito al cargar la página
+        window.onload = cargarCarrito;
+
+        // Mostrar el formulario de pago al hacer clic en el botón de pagar
+        function mostrarFormularioPago() {
+            document.getElementById('pagoForm').style.display = 'block';
+        }
+    </script>
+    <style>
+        /* Estilos para el formulario de pago */
+        #pagoForm {
+            display: none; /* Inicialmente oculto */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <img src="/pagina/imagenes/logo_pagina.jpg" alt="Logo de la empresa" style="height: 50px; border-radius: 50%;">
+                <a style="color: white;">Mercedes-Benz</a>
+                <li><a href="/pagina/html/index.html">Inicio</a></li>
+                <li><a href="/pagina/html/historia.html">Historia de Mercedes-Benz</a></li>
+                <li><a href="/pagina/html/atencion_cliente.html">Atención a Clientes</a></li>
+                <li><a href="/pagina/html/productos.html">Vehículos Exclusivos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="carrito">
+        <!-- Aquí se mostrará el carrito cargado con productos y precios -->
+    </section>
+
+    <div id="total" style="font-size: 1.5em; margin-top: 20px;">Total: $0.00</div>
+    
+    <button onclick="mostrarFormularioPago()">Pagar</button>
+
+    <section class="pago">
+        <h1>Proceso de Pago</h1>
+        <form id="pagoForm" onsubmit="event.preventDefault(); procesarPago();">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="apellido_paterno">Apellido Paterno:</label>
+            <input type="text" id="apellido_paterno" name="apellido_paterno" required>
+
+            <label for="apellido_materno">Apellido Materno:</label>
+            <input type="text" id="apellido_materno" name="apellido_materno" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+
+            <label for="calle">Calle:</label>
+            <input type="text" id="calle" name="calle" required>
+
+            <label for="municipio">Municipio:</label>
+            <input type="text" id="municipio" name="municipio" required>
+
+            <label for="pais">País:</label>
+            <input type="text" id="pais" name="pais" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="forma_pago">Forma de Pago:</label>
+            <select id="forma_pago" name="forma_pago" required>
+                <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                <option value="paypal">PayPal</option>
+                <option value="transferencia">Transferencia Bancaria</option>
+            </select>
+
+            <button type="submit">Confirmar Pago</button>
+        </form>
+    </section>
+
+    <script src="/pagina/script/obtener_usuario.js"></script>
+</body>
+</html>

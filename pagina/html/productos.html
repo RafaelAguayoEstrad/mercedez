@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Mercedes-Benz</title>
+    <link rel="stylesheet" href="/pagina/css/inicio.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        function addToCart(nombre, precio, imagen) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/pagina/php/agregar_carrito.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    Swal.fire({
+                        title: 'Producto agregado',
+                        text: xhr.responseText,
+                        icon: 'success'
+                    });
+                    actualizarCarrito(); // Actualiza el carrito después de agregar un producto
+                }
+            };
+            xhr.send(`nombre=${encodeURIComponent(nombre)}&precio=${encodeURIComponent(precio)}&imagen=${encodeURIComponent(imagen)}`);
+        }
+
+        function actualizarCarrito() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/pagina/php/mostrar_carrito.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('carrito').innerHTML = xhr.responseText;
+                    calcularTotal(); // Calcula el total después de actualizar el carrito
+                }
+            };
+            xhr.send();
+        }
+
+        function calcularTotal() {
+            var total = 0;
+            var precios = document.querySelectorAll('.item .precio');
+            var cantidades = document.querySelectorAll('.item .cantidad');
+
+            precios.forEach(function(precio, index) {
+                var precioUnitario = parseFloat(precio.innerText.replace('$', ''));
+                var cantidad = parseInt(cantidades[index].innerText);
+                total += precioUnitario * cantidad;
+            });
+
+            document.getElementById('total').innerText = 'Total: $' + total.toFixed(2);
+        }
+
+        function mostrarCategoria(categoria) {
+            document.querySelectorAll('.category').forEach(function(cat) {
+                cat.style.display = 'none';
+            });
+            document.getElementById(categoria).style.display = 'block';
+        }
+    </script>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <img src="/pagina/imagenes/logo_pagina.jpg" alt="Logo de la empresa" style="height: 50px; border-radius: 50%;">
+                <a style="color: white;">Mercedes-Benz</a>
+                <li><a href="/pagina/html/index.html">Inicio</a></li>
+                <li><a href="/pagina/html/historia.html">Historia de Mercedes-Benz</a></li>
+                <li><a href="/pagina/html/atencion_cliente.html">Atención a Clientes</a></li>
+                <li><a href="/pagina/html/carrito.html">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br><br>
+
+    <header>
+        <div class="category-buttons">
+   
+            <button onclick="mostrarCategoria('amg')">AMG</button>
+            <button onclick="mostrarCategoria('maybach')">MAYBACH</button>
+            <button onclick="mostrarCategoria('mercedes')">Mercedes-Benz</button>
+
+        </div>
+    </header>
+    
+
+    <!-- Categoría AMG -->
+    <section class="products category" id="amg" style="display: block;">
+        <!-- Contenido para AMG (ya proporcionado) -->
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carro1.jpg" alt="G63 AMG"  >
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>G63 AMG</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: V8 biturbo de 4.0 litros.</li>
+                    <li>Potencia: Aproximadamente 577 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 4.5 segundos.</li>
+                    <li>Transmisión: Automática de 9 velocidades.</li>
+                    <li>Tracción: Tracción en las cuatro ruedas (AWD).</li>
+                    <li>Blindaje: Nivel de protección B6/B7, capaz de resistir ataques con armas de fuego y explosivos.</li>
+                    <li>Interior: Lujoso y espacioso, con materiales de alta calidad, tecnología avanzada y características de confort premium.</li>
+                    <li>Extras: Equipado con sistemas de seguridad adicionales como neumáticos run-flat, vidrios antibalas y sistemas de comunicación de emergencia.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 70,000  €</strong></p>
+                <button onclick="addToCart('G63 AMG', '70000', 'carro1.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carro2.jpg" alt="AMG GT">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>AMG GT</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: V8 biturbo de 4.0 litros.</li>
+                    <li>Potencia: Aproximadamente 577 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 4.5 segundos.</li>
+                    <li>Transmisión: Automática de 9 velocidades.</li>
+                    <li>Tracción: Tracción en las cuatro ruedas (AWD).</li>
+                    <li>Blindaje: Nivel de protección B6/B7, capaz de resistir ataques con armas de fuego y explosivos.</li>
+                    <li>Interior: Lujoso y espacioso, con materiales de alta calidad, tecnología avanzada y características de confort premium.</li>
+                    <li>Extras: Equipado con sistemas de seguridad adicionales como neumáticos run-flat, vidrios antibalas y sistemas de comunicación de emergencia.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 50,000  €</strong></p>
+                <button onclick="addToCart('AMG GT', '50000', 'carro2.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carito3.jpg" alt="Mercedes-AMG Clase A">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Mercedes-AMG Clase A</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Desde 89,211.72 €</li>
+                    <li>Precio recomendado con IVA (21%), Impuesto de matriculación y gastos de transporte.</li>
+                    <li>Motor: 4 cilindros turboalimentado.</li>
+                    <li>Potencia: Aproximadamente 420 CV.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: Desde 89,211.72 €</strong></p>
+                <button onclick="addToCart('Mercedes-AMG Clase A', '89211.72', 'carito3.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categoría MAYBACH -->
+    <section class="products category" id="maybach" style="display: none;">
+        <!-- Contenido para MAYBACH (ya proporcionado) -->
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carrito9.jpg" alt="Mercedes-Maybach S 580">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Mercedes-Maybach S 580</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: V8 biturbo de 4.0 litros.</li>
+                    <li>Potencia: Aproximadamente 496 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 4.8 segundos.</li>
+                    <li>Transmisión: Automática de 9 velocidades.</li>
+                    <li>Tracción: Tracción en las cuatro ruedas (AWD).</li>
+                    <li>Interior: Lujo sin igual con materiales de alta calidad y tecnología avanzada.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 200,000  €</strong></p>
+                <button onclick="addToCart('Mercedes-Maybach S 580', '200000', 'carrito9.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carrito10.jpg" alt="Mercedes-Maybach GLS 600">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Mercedes-Maybach GLS 600</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: V12 biturbo de 6.0 litros.</li>
+                    <li>Potencia: Aproximadamente 550 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 4.1 segundos.</li>
+                    <li>Transmisión: Automática de 9 velocidades.</li>
+                    <li>Tracción: Tracción en las cuatro ruedas (AWD).</li>
+                    <li>Interior: Espacioso y lujoso con un enfoque en el confort y la tecnología.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 250,000  €</strong></p>
+                <button onclick="addToCart('Mercedes-Maybach GLS 600', '250000', 'carrito10.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carrito11.jpg" alt="Maybach 57 S">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Maybach 57 S</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: V12 biturbo de 6.0 litros.</li>
+                    <li>Potencia: Aproximadamente 603 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 5.2 segundos.</li>
+                    <li>Transmisión: Automática de 5 velocidades.</li>
+                    <li>Tracción: Tracción trasera.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 120,000  €</strong></p>
+                <button onclick="addToCart('Maybach 57 S', '120000', 'carrito11.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+    </section>
+    </section>
+
+    <!-- Categoría Mercedes-Benz -->
+    <section class="products category" id="mercedes" style="display: none;">
+        <!-- Contenido para Mercedes-Benz (ya proporcionado) -->
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carrito6.jpg" alt="Mercedes-Benz Clase C">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Mercedes-Benz Clase C</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: 4 cilindros turboalimentado de 2.0 litros.</li>
+                    <li>Potencia: Aproximadamente 255 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 6.0 segundos.</li>
+                    <li>Transmisión: Automática de 9 velocidades.</li>
+                    <li>Tracción: Tracción en las cuatro ruedas (AWD).</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 40,000  €</strong></p>
+                <button onclick="addToCart('Mercedes-Benz Clase C', '40000', 'carrito6.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carrito7.jpg" alt="Mercedes-Benz EQS">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Mercedes-Benz EQS</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: Eléctrico con una potencia de hasta 516 caballos de fuerza.</li>
+                    <li>Autonomía: Hasta 770 km con una sola carga.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 4.1 segundos.</li>
+                    <li>Transmisión: Automática de una sola velocidad.</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 100,000  €</strong></p>
+                <button onclick="addToCart('Mercedes-Benz EQS', '100000', 'carrito7.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <div class="product" style="display: flex; flex-direction: row;">
+            <div class="product-image" style="order: 2;">
+                <img src="/pagina/imagenes/carrito8.jpg" alt="Mercedes-Benz G-Class">
+            </div>
+            <div class="product-details" style="order: 1; text-align: left;">
+                <h2>Mercedes-Benz G-Class</h2>
+                <p><strong>Descripción:</strong></p>
+                <ul style="text-align: left;">
+                    <li>Motor: V8 biturbo de 4.0 litros.</li>
+                    <li>Potencia: Aproximadamente 416 caballos de fuerza.</li>
+                    <li>Aceleración: De 0 a 100 km/h en aproximadamente 5.6 segundos.</li>
+                    <li>Transmisión: Automática de 9 velocidades.</li>
+                    <li>Tracción: Tracción en las cuatro ruedas (AWD).</li>
+                </ul>
+                <br><br>
+                <p><strong>Precio: 85,000  €</strong></p>
+                <button onclick="addToCart('Mercedes-Benz G-Class', '85000', 'carrito8.jpg')">Agregar al Carrito</button>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
+

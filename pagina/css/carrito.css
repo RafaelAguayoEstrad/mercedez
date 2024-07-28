@@ -1,0 +1,199 @@
+/* Encabezado */
+header {
+    background-color: #000;
+    color: #fffbfb;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+/* Logo dentro del encabezado */
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo imagen */
+.header-logo img {
+    max-height: 50px; /* Ajusta la altura máxima del logo */
+}
+
+/* Navegación */
+nav {
+    width: 100%; /* Asegura que el nav ocupe el 100% del ancho del contenedor */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos de la lista se envuelvan */
+    justify-content: center; /* Centra los elementos de la lista */
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fffbfb;
+    display: block;
+    padding: 10px 15px; /* Añade padding para que los enlaces sean más táctiles */
+}
+
+/* Efecto hover en los enlaces de navegación */
+nav a:hover {
+    background-color: #444; /* Añade un fondo al pasar el ratón */
+    border-radius: 4px;
+}
+
+/* Adaptabilidad para móviles en el header */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Organiza los elementos verticalmente en pantallas pequeñas */
+        text-align: center; /* Centra el texto en pantallas pequeñas */
+    }
+
+    .header-logo {
+        margin-bottom: 15px; /* Espacio entre el logo y la navegación */
+    }
+
+    nav ul {
+        flex-direction: column; /* Organiza los elementos de la lista verticalmente */
+        align-items: center; /* Centra los elementos en la columna */
+    }
+
+    nav li {
+        margin: 5px 0; /* Reduce el margen entre los elementos en pantallas pequeñas */
+    }
+}
+
+/* Estilo general para contenedores de formularios y cajas de texto */
+.form-container, .pago {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 100%; /* Asegura que el contenedor no exceda el ancho disponible */
+    margin: 20px 0; /* Espacio arriba y abajo del contenedor */
+}
+
+/* Títulos dentro de contenedores de formularios */
+.form-container h1, .pago h1 {
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin-bottom: 20px;
+    font-size: 1.5rem; /* Tamaño de fuente adecuado para encabezados */
+    color: #000;
+}
+
+/* Formulario dentro de contenedores */
+.form-container form, .pago form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas de formulario */
+.form-container label, .pago label {
+    margin-bottom: 5px;
+    font-weight: bold; /* Acentúa las etiquetas */
+}
+
+/* Cajas de texto y selectores */
+.form-container textarea, .pago input, .pago select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px; /* Espacio entre elementos de formulario */
+    font-size: 1rem; /* Tamaño de fuente consistente */
+}
+
+/* Botones de formulario */
+.form-container input[type="submit"], .pago button {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem; /* Tamaño de fuente adecuado para botones */
+}
+
+.form-container input[type="submit"]:hover, .pago button:hover {
+    background-color: #444;
+}
+
+/* Estilo para elementos de productos */
+.product {
+    display: flex;
+    flex-direction: column; /* Organiza los productos verticalmente */
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%; /* Asegura que el producto ocupe todo el ancho disponible */
+}
+
+/* Imagen del producto */
+.product-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Detalles del producto */
+.product-details {
+    padding: 20px;
+}
+
+.product-details h2 {
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.product-details p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-details ul {
+    list-style: disc;
+    margin: 10px 0;
+    padding-left: 20px;
+    color: #555;
+}
+
+.product-details button {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-details button:hover {
+    background-color: #444;
+}
+
+/* Adaptabilidad para móviles */
+@media (max-width: 768px) {
+    .form-container, .pago {
+        padding: 15px; /* Ajusta el padding para pantallas pequeñas */
+    }
+
+    .form-container input[type="submit"], .pago button {
+        padding: 12px; /* Ajusta el padding de los botones */
+        font-size: 1.1rem; /* Aumenta el tamaño del texto del botón */
+    }
+}

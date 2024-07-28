@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Empleados y Pedidos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/pagina/css/empresa.css">
+</head>
+<body bgcolor="0000">
+    <header>
+        <img src="/pagina/imagenes/logo_pagina.jpg" alt="Logo de la empresa" style="height: 50px; border-radius: 50%;">
+        <li><a style="color: white;">Mercedes-Benz</a></li>
+
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html">Empresa</a>
+            <!-- Agrega más enlaces aquí si es necesario -->
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Gestión de Empleados</h1>
+        <button id="toggleEmployeesButton">Mostrar Empleados</button>
+        <button id="addEmployeeButton">Agregar Empleado</button>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>Clave</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Puesto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+                <!-- Los empleados se cargarán aquí -->
+            </tbody>
+        </table>
+        <div id="employeeFormContainer">
+            <form id="employeeForm">
+                <input type="hidden" name="id" id="employeeId">
+                <input type="text" name="clave" id="employeeClave" placeholder="Clave" required>
+                <input type="text" name="nombre" id="employeeNombre" placeholder="Nombre" required>
+                <input type="text" name="apellido_paterno" id="employeeApellidoPaterno" placeholder="Apellido Paterno" required>
+                <input type="text" name="apellido_materno" id="employeeApellidoMaterno" placeholder="Apellido Materno" required>
+                <input type="text" name="direccion" id="employeeDireccion" placeholder="Dirección" required>
+                <input type="text" name="telefono" id="employeeTelefono" placeholder="Teléfono" required>
+                <input type="email" name="correo" id="employeeCorreo" placeholder="Correo" required>
+                <input type="text" name="puesto" id="employeePuesto" placeholder="Puesto" required>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+
+        <h1>Gestión de Pedidos</h1>
+        <button id="toggleOrdersButton">Mostrar Pedidos</button>
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Nombre Cliente</th>
+                    <th>Fecha</th>
+                    <th>Detalle</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                <!-- Los pedidos se cargarán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="/pagina/script/funcion_empresa.js"></script>
+</body>
+</html>

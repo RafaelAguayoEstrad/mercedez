@@ -1,0 +1,213 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4; /* Fondo de la página */
+}
+
+/* Encabezado */
+header {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px; /* Aumenta el área clicable */
+}
+
+/* Efecto hover en los enlaces de navegación */
+.nav-links a:hover {
+    background-color: #444;
+    border-radius: 4px;
+}
+
+/* Hero */
+.hero {
+    position: relative;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Modelos */
+.models {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.model-card {
+    width: 30%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.model-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Museo */
+.museo {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.museo-info {
+    width: 60%;
+}
+
+.museo-image {
+    width: 35%;
+}
+
+.museo-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Pie de página */
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Adaptabilidad para móviles */
+@media (max-width: 768px) {
+    /* Encabezado */
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo img {
+        height: 40px; /* Ajusta el tamaño del logo */
+    }
+
+    .nav-links {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin: 5px 0; /* Reduce el margen entre los enlaces */
+    }
+
+    /* Hero */
+    .hero-text {
+        width: 90%;
+        padding: 15px; /* Ajusta el padding */
+    }
+
+    /* Modelos */
+    .model-card {
+        width: 100%; /* Ajusta el ancho de las tarjetas */
+        margin: 10px 0; /* Ajusta el margen en pantallas pequeñas */
+    }
+
+    /* Museo */
+    .museo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .museo-info, .museo-image {
+        width: 100%;
+    }
+
+    .museo-image img {
+        border-radius: 0; /* Elimina el radio de borde en pantallas pequeñas */
+    }
+}
+/* Contenedor del Hero */
+.hero-container {
+    position: relative;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    overflow: hidden; /* Oculta el contenido desbordado */
+}
+
+.hero-image {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Evita el espacio debajo de la imagen */
+}
+
+.hero-text {
+    position: absolute; /* Posiciona el texto encima de la imagen */
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición centrada */
+    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el texto */
+    color: #fff; /* Color del texto */
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+/* Adaptabilidad para móviles */
+@media (max-width: 768px) {
+    .hero-text {
+        width: 90%; /* Ajusta el ancho del texto en pantallas pequeñas */
+        padding: 15px; /* Ajusta el padding */
+        font-size: 0.9rem; /* Ajusta el tamaño del texto */
+    }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Acceso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/pagina/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function mostrarAlerta(mensaje, tipo, redirigir) {
+            Swal.fire({
+                icon: tipo,
+                title: tipo === 'error' ? 'Error de inicio de sesión' : 'Éxito',
+                text: mensaje,
+                timer: 2000, // Tiempo en milisegundos antes de redirigir
+                timerProgressBar: true,
+                didClose: () => {
+                    if (redirigir) {
+                        window.location.href = '/pagina/html/index.html';
+                    }
+                }
+            });
+        }
+
+        function enviarFormulario(event) {
+            event.preventDefault(); // Evitar el envío tradicional del formulario
+
+            var formulario = document.getElementById('loginform');
+            var datos = new FormData(formulario);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/pagina/php/login.php', true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Aquí se espera que el servidor devuelva texto plano
+                    var respuesta = xhr.responseText;
+                    if (respuesta.includes('¡Bienvenido!')) {
+                        mostrarAlerta('¡Bienvenido! Usuario y contraseña correctos', 'success', true);
+                    } else if (respuesta.includes('¡Error!')) {
+                        mostrarAlerta('¡Error! Usuario y contraseña incorrectos', 'error', false);
+                    }
+                } else {
+                    mostrarAlerta('Error en la solicitud: ' + xhr.status, 'error', false);
+                }
+            };
+
+            xhr.send(datos);
+        }
+    </script>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="contenedorcentrado">
+            <div id="login">
+                <form id="loginform" method="POST" onsubmit="enviarFormulario(event)">
+                    <label for="usuario" style="color: white;">Usuario</label>
+                    <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
+                    
+                    <label for="password" style="color: white;">Contraseña</label>
+                    <input id="password" type="password" placeholder="Contraseña" name="password" required>
+                    
+                    <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+                </form>
+            </div>
+            <div id="derecho">
+                <div class="titulo">
+                   <a>Bienvenido</a> 
+                </div>
+                <hr>
+                <div class="pie-form">
+                    <a href="registro.html">¿No tienes Cuenta? Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
